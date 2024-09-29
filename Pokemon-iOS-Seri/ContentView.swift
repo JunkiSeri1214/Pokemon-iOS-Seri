@@ -15,32 +15,55 @@ struct ContentView: View {
         GridItem(.flexible())
     ]
     
+    // ポケモンのデータを保持する状態変数
+    @State private var pokemons: [Pokemon] = []
+    
     var body: some View {
-        
-        
         // 縦方向にスクロールを設定
         ScrollView {
             // 2列で表示
             LazyVGrid(columns: columns) {
                 // 151個表示
-                ForEach(1..<152) { index in
+                ForEach(pokemons) { pokemon in
                     ZStack {
                         Circle()
                             .trim(from: 0.5, to: 1.0)
                             .fill(.red)
+                            .frame(width: 185, height: 185)
                             .overlay(
                                 Circle()
                                     .trim(from: 0.5, to: 1.0)
                                     .stroke(.black, lineWidth: 1)
                             )
+                        
                         Circle()
                             .trim(from: 0, to: 0.5)
                             .fill(.white)
+                            .frame(width: 185, height: 185)
                             .overlay(
                                 Circle()
                                     .trim(from: 0, to: 0.5)
                                     .stroke(.black, lineWidth: 1)
                             )
+                        
+                        Rectangle()
+                            .fill(Color.black)
+                            .frame(width: 185, height: 1)
+                        
+                        VStack(spacing: -5) {
+                            Text("No.\(pokemon.id)")
+                                .fontWeight(.bold)
+                            AsyncImage(url: URL(string: pokemon.sprites.front_default)) { image in
+                                image
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 120, height: 120)
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            Text(pokemon.name)
+                                .font(.subheadline)
+                        }
                     }
                 }
                 .padding()
@@ -52,12 +75,7 @@ struct ContentView: View {
             let api = PokemonAPI()
             // APIを使って全てのポケモンデータを取得
             api.getAllPokemon { allPokemons in
-                // 取得した各ポケモンの情報を1件ずつループしてコンソールに出力
-                for pokemon in allPokemons {
-                    print("ID: \(pokemon.id), 名前: \(pokemon.name), 画像URL: \(pokemon.sprites.front_default)")
-                }
-                // 取得できたポケモンの件数をコンソールに表示
-                print(allPokemons.count)
+                self.pokemons = allPokemons
             }
         }
     }
