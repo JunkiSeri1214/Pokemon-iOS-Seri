@@ -8,7 +8,7 @@
 import Foundation
 
 /// ポケモンの基本情報を表す構造体
-struct Pokemon: Codable {
+struct Pokemon: Codable, Identifiable {
     let id: Int         // ポケモンのID
     let name: String    // ポケモンの名前
     let sprites: Sprites // ポケモンの画像情報
