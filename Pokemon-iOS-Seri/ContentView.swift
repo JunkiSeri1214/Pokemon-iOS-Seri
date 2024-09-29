@@ -48,15 +48,19 @@ struct ContentView: View {
         }
         // 画面が表示されたときに実行される
         .onAppear {
-            let pokemonID = 1
-            let url = "https://pokeapi.co/api/v2/pokemon/\(pokemonID)/"
+            // PokemonAPIのインスタンスを生成
             let api = PokemonAPI()
-            
-            // API呼び出しメソッドを実行
-            api.getPokemon(from: url)
+            // APIを使って全てのポケモンデータを取得
+            api.getAllPokemon { allPokemons in
+                // 取得した各ポケモンの情報を1件ずつループしてコンソールに出力
+                for pokemon in allPokemons {
+                    print("ID: \(pokemon.id), 名前: \(pokemon.name), 画像URL: \(pokemon.sprites.front_default)")
+                }
+                // 取得できたポケモンの件数をコンソールに表示
+                print(allPokemons.count)
+            }
         }
     }
-    
 }
 
 #Preview {

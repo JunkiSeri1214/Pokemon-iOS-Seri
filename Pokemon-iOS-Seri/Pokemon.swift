@@ -21,35 +21,54 @@ struct Sprites: Codable {
 
 /// ポケモンAPIを呼び出すクラス
 class PokemonAPI {
-    func getPokemon(from url: String) {
+    
+    // ポケモンAPIのURL
+    let apiUrl = "https://pokeapi.co/api/v2/pokemon/"
+    
+    // 取得するポケモンの数
+    let limit = 151
+    
+    // すべてのポケモンの詳細情報を格納する配列
+    var allPokemons: [Pokemon] = []
+    
+    /// 全てのポケモンを取得して配列で返すメソッド
+    func getAllPokemon(completion: @escaping ([Pokemon]) -> Void) {
         
-        // URLが無効な場合は終了
-        guard let url = URL(string: url) else {
-            return
-        }
-        
-        // データ取得を非同期で実行する
-        URLSession.shared.dataTask(with: url) { data, response, error in
+        // 1番かリミットの数まで順番にAPIを呼び出す
+        for index in 1...limit {
+            // 各ポケモンのURL
+            guard let url = URL(string: "\(apiUrl)\(index)") else { continue }
             
-            // エラー発生した場合は終了
-            if let error = error {
-                return
-            }
-
-            //　データがnilの場合は終了
-            guard let data = data else {
-                return
-            }
-
-            do {
-                // 取得したJSONを構造体へ変換
-                let pokemon = try JSONDecoder().decode(Pokemon.self, from: data)
-                print("ID: \(pokemon.id)")
-                print("名前: \(pokemon.name)")
-                print("画像URL: \(pokemon.sprites.front_default)")
-            } catch {
-                print("デコードエラー: \(error)")
-            }
-        }.resume()
+            // データ取得を非同期で実行する
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                
+                // エラー発生した場合は終了
+                if let error = error {
+                    return
+                }
+                
+                //　データがnilの場合は終了
+                guard let data = data else {
+                    return
+                }
+                
+                do {
+                    // 取得したJSONを構造体へ変換
+                    let pokemon = try JSONDecoder().decode(Pokemon.self, from: data)
+                    
+                    // メインスレッドで配列を更新
+                    DispatchQueue.main.async {
+                        self.allPokemons.append(pokemon)
+                        // すべてのポケモンが揃ったら呼び出し元に配列を返す
+                        if self.allPokemons.count == self.limit {
+                            // ID順にソートしてから呼び出し元へ返す
+                            completion(self.allPokemons.sorted { $0.id < $1.id })
+                        }
+                    }
+                } catch {
+                    print("デコードエラー: \(error)")
+                }
+            }.resume()
+        }
     }
 }
