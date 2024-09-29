@@ -17,6 +17,7 @@ struct ContentView: View {
     
     var body: some View {
         
+        
         // 縦方向にスクロールを設定
         ScrollView {
             // 2列で表示
@@ -44,6 +45,15 @@ struct ContentView: View {
                 }
                 .padding()
             }
+        }
+        // 画面が表示されたときに実行される
+        .onAppear {
+            let pokemonID = 1
+            let url = "https://pokeapi.co/api/v2/pokemon/\(pokemonID)/"
+            let api = PokemonAPI()
+            
+            // API呼び出しメソッドを実行
+            api.getPokemon(from: url)
         }
     }
     
