@@ -9,26 +9,32 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        ZStack {
-            Circle()
-                .trim(from: 0.5, to: 1.0)
-                .fill(.red)
-                .overlay(
+        
+        ScrollView {
+            ForEach(1..<152) { index in
+                ZStack {
                     Circle()
                         .trim(from: 0.5, to: 1.0)
-                        .stroke(.black, lineWidth: 1)
-                )
-            Circle()
-                .trim(from: 0, to: 0.5)
-                .fill(.white)
-                .overlay(
+                        .fill(.red)
+                        .overlay(
+                            Circle()
+                                .trim(from: 0.5, to: 1.0)
+                                .stroke(.black, lineWidth: 1)
+                        )
                     Circle()
                         .trim(from: 0, to: 0.5)
-                        .stroke(.black, lineWidth: 1)
-                )
+                        .fill(.white)
+                        .overlay(
+                            Circle()
+                                .trim(from: 0, to: 0.5)
+                                .stroke(.black, lineWidth: 1)
+                        )
+                }
+                .padding()
+            }
         }
-        .padding()
     }
+    
 }
 
 #Preview {
