@@ -44,7 +44,7 @@ struct ContentView: View {
                 LazyVGrid(columns: columns) {
                     // 151個表示
                     ForEach(pokemons) { pokemon in
-                        NavigationLink(destination: PokemonDetailView()) {
+                        NavigationLink(destination: PokemonDetailView(pokemon: pokemon)) {
                             // ボールデザインを作成
                             ZStack {
                                 Circle()
