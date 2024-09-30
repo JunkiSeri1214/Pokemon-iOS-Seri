@@ -11,7 +11,7 @@ import SwiftUI
 struct Pokemon_iOS_SeriApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            PokemonListView()
         }
     }
 }

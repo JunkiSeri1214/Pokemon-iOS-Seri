@@ -9,16 +9,15 @@ import SwiftUI
 
 /// メイン画面となるビューを表す構造体
 /// ポケモン一覧を表示し、個別のポケモンを選択して詳細画面に遷移できる。
-struct ContentView: View {
+struct PokemonListView: View {
+    
+    @StateObject private var viewModel = PokemonListViewModel()
     
     // レイアウトを2列に設定
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-    
-    /// ポケモンのデータを保持する状態変数
-    @State private var pokemons: [Pokemon] = []
     
     /// 初期化時にナビゲーションバーの外観をリセットしてオリジナルの内容を設定
     init() {
@@ -43,7 +42,7 @@ struct ContentView: View {
                 // 2列で表示
                 LazyVGrid(columns: columns) {
                     // 151個表示
-                    ForEach(pokemons) { pokemon in
+                    ForEach(viewModel.allPokemons) { pokemon in
                         NavigationLink(destination: PokemonDetailView(pokemon: pokemon)) {
                             // ボールデザインを作成
                             ZStack {
@@ -100,18 +99,12 @@ struct ContentView: View {
         }
         // ナビゲーションバーのリンクおよび戻るボタンの色を白に設定
         .tint(.white)
-        // 画面が表示されたときに実行される
         .onAppear {
-            // PokemonAPIのインスタンスを生成
-            let api = PokemonAPI()
-            // APIを使って全てのポケモンデータを取得
-            api.getAllPokemon { allPokemons in
-                self.pokemons = allPokemons
-            }
+            viewModel.getAllPokemon()
         }
     }
 }
 
 #Preview {
-    ContentView()
+    PokemonListView()
 }
