@@ -11,6 +11,8 @@
 		B01398A52CA6839600C028AF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01398A42CA6839600C028AF /* ContentView.swift */; };
 		B01398A72CA6839800C028AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B01398A62CA6839800C028AF /* Assets.xcassets */; };
 		B01398AB2CA6839800C028AF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B01398AA2CA6839800C028AF /* Preview Assets.xcassets */; };
+		B0301C3E2CAA26A000E4FED0 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0301C3D2CAA26A000E4FED0 /* Pokemon.swift */; };
+		B0301C402CAA286600E4FED0 /* PokemonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0301C3F2CAA286600E4FED0 /* PokemonDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,8 @@
 		B01398A62CA6839800C028AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B01398A82CA6839800C028AF /* Pokemon_iOS_Seri.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pokemon_iOS_Seri.entitlements; sourceTree = "<group>"; };
 		B01398AA2CA6839800C028AF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B0301C3D2CAA26A000E4FED0 /* Pokemon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
+		B0301C3F2CAA286600E4FED0 /* PokemonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,8 @@
 			children = (
 				B01398A22CA6839600C028AF /* Pokemon_iOS_SeriApp.swift */,
 				B01398A42CA6839600C028AF /* ContentView.swift */,
+				B0301C3F2CAA286600E4FED0 /* PokemonDetailView.swift */,
+				B0301C3D2CAA26A000E4FED0 /* Pokemon.swift */,
 				B01398A62CA6839800C028AF /* Assets.xcassets */,
 				B01398A82CA6839800C028AF /* Pokemon_iOS_Seri.entitlements */,
 				B01398A92CA6839800C028AF /* Preview Content */,
@@ -140,7 +146,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B01398A52CA6839600C028AF /* ContentView.swift in Sources */,
+				B0301C402CAA286600E4FED0 /* PokemonDetailView.swift in Sources */,
 				B01398A32CA6839600C028AF /* Pokemon_iOS_SeriApp.swift in Sources */,
+				B0301C3E2CAA26A000E4FED0 /* Pokemon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
